@@ -7,10 +7,10 @@ import authRoutes from "./routes/authRoute.js"
 import cors from "cors";
 import categoryRoutes from "./routes/CategoryRoute.js"
 import productRoutes from "./routes/ProductRoute.js"
-// import { fileURLToPath } from 'url';
-// import path from "path"
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+import { fileURLToPath } from 'url';
+import path from "path"
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 connectDB();
 
@@ -19,16 +19,16 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-// app.use(express.static(path.join(__dirname,"../frontend/coffeeto/build")))
+app.use(express.static(path.join(__dirname,"../coffeeto/build")))
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category",categoryRoutes);
 app.use("/api/v1/product",productRoutes);
 
 
-// app.use("*",function(req,res){
-//     res.sendFile(path.join(__dirname,"../frontend/coffeeto/build/index.html"))
-// })
+app.use("*",function(req,res){
+    res.sendFile(path.join(__dirname,"../coffeeto/build/index.html"))
+})
 
 const PORT=process.env.PORT||8080;
 
